@@ -18,9 +18,14 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Build APK in BAZLO folder
+      - name: Build APK Automatically
         run: |
-          cd BAZLO
+          # Find the folder where build.gradle or build.gradle.kts exists
+          BUILD_FILE=$(find . -name "build.gradle" -o -name "build.gradle.kts" | head -n 1)
+          PROJECT_DIR=$(dirname "$BUILD_FILE")
+          echo "Found project in: $PROJECT_DIR"
+          cd "$PROJECT_DIR"
+          
           if [ -f "./gradlew" ]; then
             chmod +x gradlew
             ./gradlew assembleDebug
