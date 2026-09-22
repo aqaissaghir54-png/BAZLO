@@ -21,19 +21,22 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
 
-      # Search for gradlew in subdirectories and make it executable
-      - name: Make gradlew executable
-        run: find . -name "gradlew" -exec chmod +x {} +
-
-      # Search for gradlew and build APK
-      - name: Build APK
+      - name: Build APK with Gradle
         run: |
-          GRADLEW_PATH=$(find . -name "gradlew" | head -n 1)
-          cd $(dirname "$GRADLEW_PATH")
+          BUILD_GRADLE=$(find . -name "build.gradle" -o -name "build.gradle.kts" | head -n 1)
+          PROJECT_DIR=$(dirname "$BUILD_GRADLE")
+          cd "$PROJECT_DIR"
+          if [ ! -f "gradlew" ]; then
+            gradle wrapper
+          fi
+          chmod +x gradlew
           ./gradlew assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
+        with:
+          name: app-debug
+          path: "**/build/outputs/apk/debug/*.apk"
         with:
           name: app-debug
           path: "**/build/outputs/apk/debug/*.apk"
