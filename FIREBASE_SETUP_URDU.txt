@@ -1,0 +1,11 @@
+BAZLO V4 Firebase Setup
+1. Firebase Console mein project banayein.
+2. Authentication > Email/Password ON karein.
+3. Firestore Database create karein.
+4. com.bazlo.app register karein; google-services.json ko app/ mein rakhein.
+5. com.bazlo.admin register karein; doosra google-services.json admin/ mein rakhein.
+6. firebase/firestore.rules ko Firestore Rules mein publish karein.
+7. Firebase Authentication mein admin email/password banayein.
+8. Firestore mein admins collection banayein. Document ID admin user ka exact UID ho; field role=admin rakh sakte hain.
+9. Android Studio mein project open > Sync > Build APK.
+NOTE: Firebase config files ZIP mein nahi hain kyunki woh aapke project-specific credentials hain.
